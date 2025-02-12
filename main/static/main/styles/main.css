@@ -1,0 +1,37 @@
+body{
+    padding: 0;
+    margin: 0;
+    background: white;
+}
+.title-cont{
+    display: flex;
+    justify-content: space-around;
+}
+.navbar-collapse{
+    float: right;
+}
+nav{
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 100px;
+}
+.main-cont{
+    display: flex;
+    justify-content: center;
+}
+.main-cont h1{
+    text-align: center;
+}
+.form-cont{
+    display: flex;
+    justify-content: center;
+}
+.form-cont form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.file-info{
+    white-space: nowrap;
+  overflow-x: scroll;
+}

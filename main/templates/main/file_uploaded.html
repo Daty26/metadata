@@ -1,0 +1,25 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+    <h1>Your file is uploaded</h1>
+    <div class="d-flex justify-content-center align-items-center flex-column mt-5 text-center">
+        <p style="border: 1px solid rgb(235, 235, 235); padding: 7px; border-radius: 8px;">Uploaded file: <a href="{{ file_url }}">{{ file_url }}</a></p>
+        <div class="container-md file-info">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Metadata Attribute</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key, value in metadata.items %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
