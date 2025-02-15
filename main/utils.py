@@ -46,18 +46,19 @@ def get_file_metadata(file_path):
 
     metadata = {}
 
-    # Get file system metadata
-    stat = os.stat(file_path)
-    # Get MIME type
-    mime = magic.Magic(mime=True)
-    metadata["mime_type"] = mime.from_file(file_path)
+    # stat = os.stat(file_path)
 
-    # Extract metadata using ExifTool
     try:
+        # print(metadata["file_size"])
+        mime = magic.Magic(mime=True)
+        metadata["mime_type"] = mime.from_file(file_path)
+
         result = subprocess.run(["exiftool", "-j", file_path], capture_output=True, text=True)
         if result.stdout:
             exif_data = json.loads(result.stdout)
             metadata = exif_data[0]
+            metadata["file_size"] = os.path.getsize(file_path)
+            # metadata['stat'] = stat
         else:
             metadata = "unknown type"
     except Exception as e:
