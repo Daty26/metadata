@@ -1,0 +1,11 @@
+ CREATE TABLE file_metadata (
+    id SERIAL PRIMARY KEY,
+    file_name VARCHAR(255) NOT NULL,
+    file_size BIGINT NOT NULL,
+    file_type VARCHAR(255),
+    mime_type VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	  uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    metadata JSONB NOT NULL
+);
