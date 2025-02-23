@@ -28,9 +28,9 @@ def parse_datetime(date_str):
 
 def metadata_to_db(metadata):
     db_config = {
-        "dbname": "University",
+        "dbname": "postgres",
         "user": "postgres",
-        "password": "1234",
+        "password": "root",
         "host": "localhost",
         "port": 5432
     }

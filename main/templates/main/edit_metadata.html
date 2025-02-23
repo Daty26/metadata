@@ -1,0 +1,74 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+    <h1>Edit File Metadata</h1>
+    {% if current_file %}
+        <div class="alert alert-info" role="alert">
+            Editing file: {{ current_file }}
+        </div>
+    {% endif %}
+    {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+    {% endif %}
+    <div class="d-flex justify-content-center align-items-center flex-column mt-5">
+        <div class="container-md">
+            <form method="post" class="metadata-form">
+                {% csrf_token %}
+                
+                {% for category, fields in organized_metadata.items %}
+                    {% if fields %}
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0">{{ category }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Field</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for field, value in fields.items %}
+                                        <tr>
+                                            <td>
+                                                {{ field }}
+                                                {% if field in metadata %}
+                                                    <small class="text-success">(exists)</small>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if 'Date' in field or 'Time' in field %}
+                                                    <input type="datetime-local" 
+                                                           name="metadata_{{ field }}" 
+                                                           value="{{ value|slice:":19" }}" 
+                                                           class="form-control"
+                                                           step="1">
+                                                    <small class="text-muted">Current: {{ value }}</small>
+                                                {% else %}
+                                                    <input type="text" 
+                                                           name="metadata_{{ field }}" 
+                                                           value="{{ value }}" 
+                                                           class="form-control"
+                                                           placeholder="Enter {{ field }}">
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="{% url 'home' %}" class="btn btn-secondary ms-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
