@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Metadata Comparison</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/styles/compare.css' %}">
+</head>
+<body>
+    <h1>Compare File Metadata</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>File 1:</label>
+        <input type="file" name="file1" required><br><br>
+        <label>File 2:</label>
+        <input type="file" name="file2" required><br><br>
+        <button type="submit">Compare</button>
+    </form>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {% if metadata1 and metadata2 %}
+        <h2>Metadata of File 1:</h2>
+        <pre>{{ metadata1 }}</pre>
+
+        <h2>Metadata of File 2:</h2>
+        <pre>{{ metadata2 }}</pre>
+    {% endif %}
+
+    {% if differences %}
+        <h2>Differences:</h2>
+        <table border="1">
+            <tr>
+                <th>Property</th>
+                <th>File 1</th>
+                <th>File 2</th>
+            </tr>
+            {% for key, values in differences.items %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ values.File_1 }}</td>
+                    <td>{{ values.File_2 }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No differences found or files are identical.</p>
+    {% endif %}
+
+   {% if file1_size and file2_size %}
+    <h2> Additional information about files:</h2>
+    <table border="1">
+        <tr>
+            <th>File</th>
+            <th>Size</th>
+            <th>Last modified</th>
+        </tr>
+        <tr>
+            <td>File 1</td>
+            <td>{{ file1_size }} bytes</td>
+            <td>{{ file1_mtime }}</td>
+        </tr>
+        <tr>
+            <td>File 2</td>
+            <td>{{ file2_size }} bytes</td>
+            <td>{{ file2_mtime }}</td>
+        </tr>
+    </table>
+{% endif %}
+
+</body>
+</html>

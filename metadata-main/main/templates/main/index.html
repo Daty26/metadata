@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+
+	<h1>Metadata Analysis for Authenticity Verification </h1>
+    <div class="form-cont mt-5 py-5">
+        <form action="{% url 'upload_file' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="fileUpload" class="form-label">Select a file to upload:</label>
+                <input type="file" name="uploaded_file" id="fileUpload" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+{% endblock %}
