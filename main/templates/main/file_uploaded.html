@@ -1,0 +1,37 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+    <h1>Your file is uploaded</h1>
+    {% if success_message %}
+        <div class="alert alert-success" role="alert">
+            {{ success_message }}
+        </div>
+    {% endif %}
+    {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+    {% endif %}
+    <div class="d-flex justify-content-center align-items-center flex-column mt-5 text-center">
+        <div class="container-md file-info">
+            <div class="mb-3">
+                <a href="{% url 'edit_metadata' %}" class="btn btn-primary">Edit Metadata</a>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Metadata Attribute</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key, value in metadata.items %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
